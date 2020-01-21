@@ -1,0 +1,76 @@
+GITHUB: https://github.com/Dan767/404Lab3
+
+1.
+
+The following code will allow you to inspect the environment variables:
+
+#!/usr/bin/env python3
+import cgi
+import cgitb
+import os
+
+print("Content-type: text/html\n")
+print()
+
+print(os.environ)
+
+This will print the environment variables.
+
+2.
+
+QUERY_STRING contains the query parameter data.
+
+3.
+
+The HTTP_USER_AGENT variable contains this information and can be printed as such:
+
+print(os.environ.get('HTTP_USER_AGENT'))
+
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36
+
+4.
+The following is the HTML for the login form:
+
+r"""
+    <h1> Welcome! </h1>
+
+    <form method="POST" action="login.py">
+        <label> <span>Username:</span> <input autofocus type="text" name="username"></label> <br>
+        <label> <span>Password:</span> <input type="password" name="password"></label>
+
+        <button type="submit"> Login! </button>
+    </form>
+    """
+
+As it shows, the submit button POSTs the form data back to login.py.  This is simply as form data,
+so it would be stored as "username"="Daniel" "password"="Dick".  This form data can be retrieved by:
+
+s = cgi.FieldStorage()
+username = s.getfirst("username")
+password = s.getfirst("password")
+
+5.
+The following syntax is used:
+
+Set-Cookie: cookie=cookievalue
+
+6.
+To send it back, the cookies are included in the HTTP request as such:
+
+Cookie: username=Daniel;password=Dick
+
+For example, this could be included after the "Host" in an example GET as such:
+
+GET /sample_page.html HTTP/1.1
+Host: www.example.org
+Cookie: username=Daniel;password=Dick
+
+7.
+Cookies are used to store and send information that was previously communicated between the client
+and server, such that previous interactions do not need to be repeated to reach the same stage.  In this
+way, form data does not need to be re-submitted and previous actions do not need to be repeated, since the 
+cookies can store that information. 
+
+
+
+GITHUB: https://github.com/Dan767/404Lab3
